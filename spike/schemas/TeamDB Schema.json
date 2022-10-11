@@ -1,0 +1,14 @@
+{
+    "team_id": "String",
+    "team_members": ["String"],
+    "quiz_id": "String",
+    "response": [
+        {
+            "question_id": "String",
+            "option_id": "String",
+            "correct_option_id": "String"
+        }
+    ],
+    "score": 0,
+    "rank": 100
+}
