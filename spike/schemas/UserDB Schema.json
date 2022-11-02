@@ -1,9 +1,0 @@
-{
-    "user_id": "String",
-    "username": "String",
-    "hashed_password": "String",
-    "name": "String",
-    "roll_no": "String",
-    "semester": 7,
-    "branch": "String"
-}
