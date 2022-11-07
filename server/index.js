@@ -7,6 +7,8 @@ const app = express();
 const socket = require("socket.io");
 require("dotenv").config();
 
+const { addToGroups } = require("./utils/userUtils");
+
 app.use(cors());
 app.use(express.json());
 
@@ -40,6 +42,7 @@ io.on("connection", (socket) => {
   global.chatSocket = socket;
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
+    addToGroups(userId, socket);
   });
 
   socket.on("send-msg", (data) => {
