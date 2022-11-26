@@ -37,3 +37,18 @@ module.exports.quitGroup = async (req, res, next) => {
         next(err);
     }
 };
+
+module.exports.searchUser = (req, res, next) => {
+    try {
+      let regExp = new RegExp(`[^\n]*${req.params.search}[^\n]*`);
+      let userList = User.find({ username: { $ne: req.params.username, $regex: regExp, $options: "i" } }).select([
+        "email",
+        "username",
+        "avatarImage",
+        "_id"
+      ]);
+      return res.status(200).json(userList);
+    } catch(err) {
+      next(err);
+    }
+  };
