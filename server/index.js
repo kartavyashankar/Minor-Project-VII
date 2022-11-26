@@ -7,6 +7,8 @@ const app = express();
 const socket = require("socket.io");
 require("dotenv").config();
 
+const { addToGroups, leaveGroups } = require("./utils/userUtils");
+
 app.use(cors());
 app.use(express.json());
 
@@ -40,6 +42,7 @@ io.on("connection", (socket) => {
   global.chatSocket = socket;
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
+    addToGroups(userId, socket);
   });
 
   socket.on("send-msg", (data) => {
@@ -47,5 +50,16 @@ io.on("connection", (socket) => {
     if (sendUserSocket) {
       socket.to(sendUserSocket).emit("msg-recieve", data.msg);
     }
+  });
+
+  socket.on("send-group-msg", (data) => {
+    const room = data.to;
+    if(socket.rooms.indexOf(room) >= 0) {
+      socket.to(room).emit("group-msg-recieve", data.msg);  
+    }
+  });
+
+  socket.on("logout", () => {
+    leaveGroups(socket);
   });
 });
