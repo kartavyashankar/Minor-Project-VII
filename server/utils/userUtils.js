@@ -6,8 +6,7 @@ module.exports.addToGroups = async (userId, socket) => {
         const groups = await groupModel.find({ members: userId });
         const rooms = [];
         for(let i = 0; i<groups.length; i++) {
-            const roomName = await bcrypt.hash(groups[i].groupId, 10)
-            rooms.push(roomName);
+            rooms.push(groups[i].groupId);
         }
         socket.join(rooms);
     } catch(err) {

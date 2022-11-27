@@ -3,6 +3,6 @@ const router = require("express").Router();
 
 router.post("/addgrp", addGroup);
 router.post("/quitgrp", quitGroup);
-router.get("/serachUsers", searchUser);
+router.get("/searchUsers", searchUser);
 
 module.exports = router;
